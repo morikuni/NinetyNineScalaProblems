@@ -24,4 +24,29 @@ object WorkingWithLists {
     }
     loop(l, Nil)
   }
+
+  def compress[A](l: List[A]): List[A] = {
+    l.foldRight(Nil: List[A]) { (a, acc) =>
+      if(acc.headOption.exists(_ == a)) acc
+      else a :: acc
+    }
+  }
+
+  def pack[A](l: List[A]): List[List[A]] = {
+    l.foldRight(Nil: List[List[A]]) { (a, acc) =>
+      acc match {
+        case (aList@(x :: aTail)) :: lTail if x == a => (a :: aList) :: lTail
+        case tail => List(a) :: tail
+      }
+    }
+  }
+
+  def encode[A](l: List[A]): List[(Int, A)] = {
+    l.foldRight(Nil: List[(Int, A)]) { (a, acc) =>
+      acc match {
+        case (c, x) :: tail if x == a => (c+1, x) :: tail
+        case tail => (1, a) :: tail
+      }
+    }
+  }
 }

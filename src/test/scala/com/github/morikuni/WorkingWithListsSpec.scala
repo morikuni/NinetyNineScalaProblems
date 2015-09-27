@@ -50,4 +50,22 @@ class WorkingWithListsSpec extends Specification {
       flatten(List(List(1, 1), 2, List(3, List(5, 8)))) must_=== List(1, 1, 2, 3, 5, 8)
     }
   }
+
+  "P08 compress(List)" should {
+    "eliminates consecutive duplicates of list elements" in {
+      compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) must_== List('a, 'b, 'c, 'a, 'd, 'e)
+    }
+  }
+
+  "P09 pack(List)" should {
+    "packs consecutive duplicates of list elements into sublists" in {
+      pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) must_== List(List('a, 'a, 'a, 'a), List('b), List('c, 'c), List('a, 'a), List('d), List('e, 'e, 'e, 'e))
+    }
+  }
+
+  "P10 encode(List)" should {
+    "Run-length encoding of a List" in {
+      encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) must_== List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e))
+    }
+  }
 }
